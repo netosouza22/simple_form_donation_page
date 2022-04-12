@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import Icon2 from '../../assets/icons/amor.png';
-import Icon1 from '../../assets/icons/conhecimento.png';
+import Icon1 from '../../assets/icons/conhecimento_1.png';
 import Icon3 from '../../assets/icons/maternidade.png';
 import Icon4 from '../../assets/icons/refeicoes.png';
 import { Footer } from '../Footer';
@@ -16,12 +16,13 @@ export interface props {
   size?: any;
   GridImageArray?: any;
   footerInfo?: any;
+  backgroundImg?: any;
 }
 
-const SectionInfo = ({ size, GridImageArray, footerInfo }: props) => {
-  console.log(GridImageArray);
+const SectionInfo = ({ size, GridImageArray, footerInfo, backgroundImg }: props) => {
+  console.log(footerInfo);
   return (
-    <Styled.Container>
+    <Styled.Container backgroundImg={backgroundImg.srcImg}>
       <Styled.SectionInfoHead>
         <EmphasisText size="small" fontSize="sm" fontWeight="bd" colorDark={false}>
           Doação para:
@@ -40,23 +41,25 @@ const SectionInfo = ({ size, GridImageArray, footerInfo }: props) => {
           O que fazemos:
         </EmphasisText>
         <Styled.ListIconContainer>
-          <ItemListIcon srcImg={Icon1} text="conhecimento" bold={true}>
-            Fornecimento de Refeições
-          </ItemListIcon>
-          <ItemListIcon srcImg={Icon2} text="conhecimento" bold={true}>
-            Fornecimento de Refeições
-          </ItemListIcon>
-          <ItemListIcon srcImg={Icon3} text="conhecimento" bold={true}>
-            Fornecimento de Refeições
-          </ItemListIcon>
           <ItemListIcon srcImg={Icon4} text="conhecimento" bold={true}>
             Fornecimento de Refeições
+          </ItemListIcon>
+          <ItemListIcon srcImg={Icon1} text="conhecimento" bold={true}>
+            Espaço para Estudo
+          </ItemListIcon>
+          <ItemListIcon srcImg={Icon3} text="conhecimento" bold={true}>
+            Suporte às Mães
+          </ItemListIcon>
+          <ItemListIcon srcImg={Icon2} text="conhecimento" bold={true}>
+            Cuidado e Carinho
           </ItemListIcon>
         </Styled.ListIconContainer>
         <EmphasisText size="small" fontSize="sm" fontWeight="bd" colorDark={false}>
           Nossa Galeria:
         </EmphasisText>
-        <GridImage ImgArray={GridImageArray} />
+        <Styled.GridImgContainer>
+          <GridImage ImgArray={GridImageArray} />
+        </Styled.GridImgContainer>
       </Styled.SectionInfoBody>
       <Styled.SectionFooter>
         <Footer

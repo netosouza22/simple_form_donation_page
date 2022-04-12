@@ -7,8 +7,8 @@ type PropsItemListIcon = Props & PropsTextComponent;
 export const ItemListIcon = ({
   srcImg,
   text,
-  width = '30px',
-  height = '30px',
+  width = '40px',
+  height = '40px',
   colorDark,
   fontSize = 'sm',
   bold,

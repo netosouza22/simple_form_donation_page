@@ -11,7 +11,7 @@ export interface IProps {
 
 const EnphasisTextSize: any = {
   small: () => css`
-    padding-left: 10px;
+    padding-left: 14px;
     &::before {
       width: 4px;
     }
@@ -34,9 +34,9 @@ const ContainerEmphasisText = styled.div<IProps>`
     &::before {
       content: '';
       position: absolute;
-      height: 100%;
+      height: 75%;
       left: 0;
-      bottom: 0;
+      bottom: 3px;
       background-color: ${theme.colors.secondary.main};
       border-radius: 10px;
     }

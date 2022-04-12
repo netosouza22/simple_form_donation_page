@@ -11,6 +11,7 @@ export default {
   args: {
     GridImageArray: SectionInfoRes.gridImageArray,
     footerInfo: SectionInfoRes.footerInfo,
+    backgroundImg: SectionInfoRes.backgroundImg,
   },
 } as ComponentMeta<typeof SectionInfo>;
 

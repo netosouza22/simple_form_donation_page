@@ -1,9 +1,13 @@
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+interface PropsBackgroundImg {
+  backgroundImg: string;
+}
+export const Container = styled.div<PropsBackgroundImg>`
   height: 100%;
-  ${({ theme }) => css`
+  ${({ theme, backgroundImg }) => css`
     width: 50%;
+    background: url(${backgroundImg});
     padding: 1.8rem;
     border-radius: 15px 30px 15px 15px;
 
@@ -18,24 +22,35 @@ export const Container = styled.div`
 
 export const SectionTitle = styled.div`
   text-align: center;
+  padding: 10px 10px 20px;
 `;
 export const SectionInfoHead = styled.div`
   color: ${({ theme }) => theme.colors.common.white};
 `;
+
 export const SectionInfoBody = styled.div`
   color: ${({ theme }) => theme.colors.common.white};
 `;
 export const SectionFooter = styled.div`
-  color: ${({ theme }) => theme.colors.common.white};
+  margin: auto;
+  width: 89%;
 `;
 
 export const ListIconContainer = styled.div`
-  color: ${() => css`
-    border: 1px solid;
-    width: 100%;
+  ${() => css`
+    padding: 10px 10px 20px;
+    width: 90%;
+    margin: auto;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     flex-wrap: wrap;
+    gap: 15px;
   `};
+`;
+
+export const GridImgContainer = styled.div`
+  ${() => css`
+    margin: 10px 10px 20px 10px;
+  `}
 `;

@@ -2,11 +2,16 @@ import IconContact from '../../assets/icons/icon-contact.svg';
 import IconFacebook from '../../assets/icons/icon-facebook.svg';
 import IconInstagram from '../../assets/icons/icon-instagram.svg';
 import IconWhatsapp from '../../assets/icons/icon-zap.svg';
+import backgroundImg from '../../assets/imgs/background-img.png';
 import image1 from '../../assets/imgs/criança1.jpg';
 import image2 from '../../assets/imgs/criança2.jpg';
 import image3 from '../../assets/imgs/criança3.jpg';
 
 export const SectionInfoRes = {
+  backgroundImg: {
+    altText: 'Imagem 1',
+    srcImg: backgroundImg,
+  },
   gridImageArray: [
     {
       altText: 'Imagem 1',
