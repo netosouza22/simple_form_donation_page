@@ -17,6 +17,7 @@ const SectionForm: React.FC = () => {
     [person],
   );
 
+  console.log(person);
   return (
     <Styled.Container>
       <EmphasisText size="medium" fontSize="md" colorDark={true}>
