@@ -6,7 +6,7 @@ import RootContainer from '../../templates/RootContainer';
 import * as Styled from './styles';
 
 const MainSection = () => {
-  console.log('ahahahhahahah');
+  console.log('mds');
   return (
     <RootContainer>
       <Styled.SectionDonation>
