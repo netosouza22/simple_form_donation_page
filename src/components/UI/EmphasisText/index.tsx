@@ -4,7 +4,7 @@ import { IFontSize, IFontWeight } from '../../../styles/styles';
 export interface IProps {
   children?: string;
   size: 'small' | 'medium' | 'large';
-  fontSize?: string;
+  fontSize: 'ls' | 'sm' | 'md' | 'lg' | 'xl';
   fontWeight?: string;
   colorDark: boolean;
 }
@@ -34,9 +34,9 @@ const ContainerEmphasisText = styled.div<IProps>`
     &::before {
       content: '';
       position: absolute;
-      height: 75%;
+      height: ${size === 'small' ? '80%' : '100%'};
       left: 0;
-      bottom: 3px;
+      bottom: ${size === 'small' ? '16%' : '0%'};
       background-color: ${theme.colors.secondary.main};
       border-radius: 10px;
     }

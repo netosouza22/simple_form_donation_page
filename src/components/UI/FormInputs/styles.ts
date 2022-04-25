@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
-import { InputProps } from './FormikTextFieldMasked/index';
+import { InputPropsRadio } from './RadioInput/index';
+import { InputProps } from './TextFieldMasked/index';
 
 export const TextField = styled.input<InputProps>`
   z-index: 1;
@@ -64,4 +65,44 @@ export const HelperTextField = styled.div<InputProps>`
   overflow: hidden;
   white-space: nowrap;
   z-index: 999;
+`;
+
+export const RadioButtonLabel = styled.div<InputPropsRadio>`
+  font-size: 1.2rem;
+  padding: 0;
+  margin: 0 10px;
+  cursor: pointer;
+`;
+export const RadioButtonInput = styled.div<InputPropsRadio>`
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  & input {
+    opacity: 0;
+  }
+`;
+export const RadioButtonContainer = styled.div<InputPropsRadio>`
+  width: 100%;
+  max-width: 13rem;
+  width: 100%;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+
+  ${RadioButtonInput}:hover & {
+    background-color: blue;
+  }
+`;
+
+export const RadioCheckmark = styled.div<InputPropsRadio>`
+  width: 15px;
+  height: 15px;
+  position: absolute;
+
+  border: 5px solid #000;
+  border-radius: 50%;
+
+  cursor: pointer;
 `;
