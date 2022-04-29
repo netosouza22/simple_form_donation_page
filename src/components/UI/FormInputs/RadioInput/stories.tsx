@@ -7,6 +7,7 @@ export default {
   title: 'RadioButton',
   component: RadioButton,
   args: {
+    name: 'radioButton',
     label: 'label',
   },
 } as ComponentMeta<typeof RadioButton>;

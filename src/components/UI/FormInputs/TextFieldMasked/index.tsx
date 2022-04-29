@@ -1,17 +1,25 @@
 // @flow
 import React, { InputHTMLAttributes } from 'react';
 import { maskCNPJ, maskCPF, maskCurrency, maskPhoneNumber } from '../../../../utils/masks';
-import { HelperTextField, TextField, TextFieldContainer } from '../styles';
+import { HelperTextField, LabelInput, TextField, TextFieldContainer } from '../styles';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   helperText?: string;
   mask?: 'cpf' | 'cnpj' | 'currency' | 'phoneNumber';
+  label?: string;
   backgroundColor?: string;
   darkColor?: boolean;
 }
 
-export const TextFieldMasked: React.FC<InputProps> = ({ mask, helperText, backgroundColor, darkColor, ...rest }) => {
-  const handleChange = React.useCallback(
+export const TextFieldMasked: React.FC<InputProps> = ({
+  mask,
+  label,
+  helperText,
+  backgroundColor,
+  darkColor,
+  ...rest
+}) => {
+  const handleChangeText = React.useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       let value = '';
       switch (mask) {
@@ -49,13 +57,13 @@ export const TextFieldMasked: React.FC<InputProps> = ({ mask, helperText, backgr
 
   return (
     <TextFieldContainer>
+      {label && <LabelInput>{label}:</LabelInput>}
       {helperText && (
         <HelperTextField backgroundColor={backgroundColor} darkColor={darkColor}>
-          {' '}
-          {helperTextFormated()}{' '}
+          {helperTextFormated()}
         </HelperTextField>
       )}
-      <TextField helperText={helperText} {...rest} onChange={handleChange} />;
+      <TextField helperText={helperText} {...rest} onKeyUp={handleChangeText} />;
     </TextFieldContainer>
   );
 };

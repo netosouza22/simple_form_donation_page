@@ -1,11 +1,17 @@
 // @flow
 import React, { InputHTMLAttributes } from 'react';
-import { TextFieldContainer } from '../styles';
+import { LabelInput, TextFieldContainer, TextFieldInput } from '../styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
+  label?: string;
 }
 
-export const TextField: React.FC<InputProps> = ({ ...props }) => {
-  return <TextFieldContainer {...props} />;
+export const TextField: React.FC<InputProps> = ({ label, ...props }) => {
+  return (
+    <TextFieldContainer>
+      <LabelInput>{label}:</LabelInput>
+      <TextFieldInput {...props} />)
+    </TextFieldContainer>
+  );
 };

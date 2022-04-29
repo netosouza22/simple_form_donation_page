@@ -25,12 +25,37 @@ export const TextField = styled.input<InputProps>`
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 5px;
 `;
+export const TextFieldInput = styled.input`
+  z-index: 1;
+  width: 100%;
+  height: 50px;
+
+  padding: 0px 10px;
+
+  font-size: 2rem;
+  background-color: transparent;
+
+  &::placeholder {
+    color: black;
+  }
+
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+`;
 
 export const TextFieldContainer = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
 `;
+
+export const LabelInput = styled.label`
+  font-weight: bold;
+  font-size: 1.6rem;
+  margin-bottom: 7px;
+`;
+
 export const HelperTextField = styled.div<InputProps>`
   position: absolute;
   display: flex;
@@ -67,20 +92,37 @@ export const HelperTextField = styled.div<InputProps>`
   z-index: 999;
 `;
 
-export const RadioButtonLabel = styled.div<InputPropsRadio>`
+export const RadioButtonLabel = styled.label<InputPropsRadio>`
   font-size: 1.2rem;
   padding: 0;
   margin: 0 10px;
+  font-weight: bold;
   cursor: pointer;
 `;
+
+export const RadioCheckmark = styled.div<InputPropsRadio>`
+  ${({ theme, checked }) => css`
+    border: ${checked ? `5px solid ${theme.colors.primary.dark}` : `2px solid  ${theme.colors.common.black}`};
+  `}
+  width: 15px;
+  height: 15px;
+  position: absolute;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+`;
+
 export const RadioButtonInput = styled.div<InputPropsRadio>`
   cursor: pointer;
   width: 15px;
   height: 15px;
   & input {
+    cursor: pointer;
     opacity: 0;
   }
 `;
+
 export const RadioButtonContainer = styled.div<InputPropsRadio>`
   width: 100%;
   max-width: 13rem;
@@ -91,18 +133,7 @@ export const RadioButtonContainer = styled.div<InputPropsRadio>`
   align-items: center;
   flex-direction: row-reverse;
 
-  ${RadioButtonInput}:hover & {
-    background-color: blue;
+  &:hover ${RadioCheckmark} {
+    background-color: #d9ece8;
   }
-`;
-
-export const RadioCheckmark = styled.div<InputPropsRadio>`
-  width: 15px;
-  height: 15px;
-  position: absolute;
-
-  border: 5px solid #000;
-  border-radius: 50%;
-
-  cursor: pointer;
 `;
