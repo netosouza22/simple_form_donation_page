@@ -90,6 +90,9 @@ export const HelperTextField = styled.div<InputProps>`
   overflow: hidden;
   white-space: nowrap;
   z-index: 999;
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+  border-left: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 `;
 
 export const RadioButtonLabel = styled.label<InputPropsRadio>`
