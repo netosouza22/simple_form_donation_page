@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { Person } from '../../types/forms';
 import EmphasisText from '../UI/EmphasisText';
+import { RadioButtonMoney } from '../UI/FormInputs/RadioButtonMoney';
 import { RadioButton } from '../UI/FormInputs/RadioInput';
 import { TextField } from '../UI/FormInputs/TextField';
 import { TextFieldMasked } from '../UI/FormInputs/TextFieldMasked';
@@ -9,9 +10,16 @@ import * as Styled from './styles';
 
 const SectionForm: React.FC = () => {
   const [person, setPerson] = React.useState<Person>({} as Person);
-  const [checked, setChecked] = React.useState({
+  const [valueMoney, setValueMoney] = React.useState<string>('');
+  const [typeChecked, setTypeChecked] = React.useState({
     radioOne: true,
     radioTwo: false,
+  });
+  const [radioMoneyChecked, setRadioMoneyChecked] = React.useState({
+    radioOne: false,
+    radioTwo: false,
+    radioThree: false,
+    radioFour: false,
   });
 
   const handleChange = React.useCallback(
@@ -20,17 +28,42 @@ const SectionForm: React.FC = () => {
 
       if (e.currentTarget.name === 'personType') {
         if (e.currentTarget.value === 'fisicalPerson') {
-          setChecked({ radioOne: true, radioTwo: false });
+          setTypeChecked({ radioOne: true, radioTwo: false });
         }
         if (e.currentTarget.value === 'legalPerson') {
-          setChecked({ radioOne: false, radioTwo: true });
+          setTypeChecked({ radioOne: false, radioTwo: true });
+        }
+      }
+    },
+    [person],
+  );
+  const handleChangeMoney = React.useCallback(
+    (e: React.FormEvent<HTMLInputElement>) => {
+      setPerson({ ...person, [e.currentTarget.name]: e.currentTarget.value });
+
+      if (e.currentTarget.name === 'radioMoney') {
+        console.log(e.currentTarget.value);
+        if (e.currentTarget.value === '10') {
+          setRadioMoneyChecked({ radioOne: true, radioTwo: false, radioThree: false, radioFour: false });
+          setValueMoney(e.currentTarget.value);
+        }
+        if (e.currentTarget.value === '25') {
+          setRadioMoneyChecked({ radioOne: false, radioTwo: true, radioThree: false, radioFour: false });
+          setValueMoney(e.currentTarget.value);
+        }
+        if (e.currentTarget.value === '50') {
+          setRadioMoneyChecked({ radioOne: false, radioTwo: false, radioThree: true, radioFour: false });
+          setValueMoney(e.currentTarget.value);
+        }
+        if (e.currentTarget.value === '100') {
+          setRadioMoneyChecked({ radioOne: false, radioTwo: false, radioThree: false, radioFour: true });
+          setValueMoney(e.currentTarget.value);
         }
       }
     },
     [person],
   );
 
-  console.log(person);
   return (
     <Styled.Container>
       <EmphasisText size="medium" fontSize="md" colorDark={true}>
@@ -41,14 +74,14 @@ const SectionForm: React.FC = () => {
           name="personType"
           label="Doar Como Pessoa Física"
           value="fisicalPerson"
-          checked={checked.radioOne}
+          checked={typeChecked.radioOne}
           onClick={handleChange}
         ></RadioButton>
         <RadioButton
           name="personType"
           label="Doar Como Pessoa Jurídica"
           value="legalPerson"
-          checked={checked.radioTwo}
+          checked={typeChecked.radioTwo}
           onClick={handleChange}
         ></RadioButton>
         <TextField name="nome" label="Nome" placeholder="Insira Seu Nome" onChange={handleChange} />
@@ -61,10 +94,45 @@ const SectionForm: React.FC = () => {
           mask="phoneNumber"
           onChange={handleChange}
         />
+        <Styled.RadioMoneySection>
+          <Styled.RadioMoneyGroupLabel>Quantia:</Styled.RadioMoneyGroupLabel>
+          <Styled.RadioMoneyGroup>
+            <RadioButtonMoney
+              label="10"
+              value={10}
+              name="radioMoney"
+              checked={radioMoneyChecked.radioOne}
+              onClick={handleChangeMoney}
+            />
+            <RadioButtonMoney
+              label="25"
+              value={25}
+              name="radioMoney"
+              checked={radioMoneyChecked.radioTwo}
+              onClick={handleChangeMoney}
+            />
+            <RadioButtonMoney
+              label="50"
+              value={50}
+              name="radioMoney"
+              checked={radioMoneyChecked.radioThree}
+              onClick={handleChangeMoney}
+            />
+            <RadioButtonMoney
+              label="100"
+              value={100}
+              name="radioMoney"
+              checked={radioMoneyChecked.radioFour}
+              onClick={handleChangeMoney}
+            />
+          </Styled.RadioMoneyGroup>
+        </Styled.RadioMoneySection>
+
         <TextFieldMasked
           name="currency"
           placeholder="Insira o Valor que deseja Doar"
           onChange={handleChange}
+          value={valueMoney ? valueMoney : ''}
           mask="currency"
           helperText="R$"
         />
