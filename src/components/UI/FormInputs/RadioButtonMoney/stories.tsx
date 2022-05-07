@@ -1,0 +1,17 @@
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import React from 'react';
+import { RadioButtonMoney } from './index';
+
+// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+export default {
+  title: 'UI/RadioButtonMoney',
+  component: RadioButtonMoney,
+  args: {
+    name: 'RadioButtonMoney',
+    label: '54',
+    value: 54,
+  },
+} as ComponentMeta<typeof RadioButtonMoney>;
+
+// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+export const Template: ComponentStory<typeof RadioButtonMoney> = (args) => <RadioButtonMoney {...args} />;
