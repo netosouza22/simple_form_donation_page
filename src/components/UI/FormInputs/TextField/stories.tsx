@@ -4,7 +4,7 @@ import { TextField } from './index';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'TextField',
+  title: 'UI/TextField',
   component: TextField,
 } as ComponentMeta<typeof TextField>;
 

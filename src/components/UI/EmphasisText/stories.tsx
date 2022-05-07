@@ -4,7 +4,7 @@ import EmphasisText from './index';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'EmphasisText',
+  title: 'UI/EmphasisText',
   component: EmphasisText,
 } as ComponentMeta<typeof EmphasisText>;
 
