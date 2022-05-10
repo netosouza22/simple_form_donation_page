@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled, { css, DefaultTheme } from 'styled-components';
 
 export interface IButton {
