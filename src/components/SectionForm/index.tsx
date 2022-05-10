@@ -1,6 +1,8 @@
 // @flow
 import * as React from 'react';
 import { Person } from '../../types/forms';
+import { Box } from '../UI/Box';
+import { Button } from '../UI/Button';
 import EmphasisText from '../UI/EmphasisText';
 import { RadioButtonMoney } from '../UI/FormInputs/RadioButtonMoney';
 import { RadioButton } from '../UI/FormInputs/RadioInput';
@@ -26,6 +28,10 @@ const SectionForm: React.FC = () => {
     (e: React.FormEvent<HTMLInputElement>) => {
       setPerson({ ...person, [e.currentTarget.name]: e.currentTarget.value });
 
+      if (e.currentTarget.name === 'currency') {
+        setValueMoney(e.currentTarget.value);
+      }
+
       if (e.currentTarget.name === 'personType') {
         if (e.currentTarget.value === 'fisicalPerson') {
           setTypeChecked({ radioOne: true, radioTwo: false });
@@ -42,22 +48,21 @@ const SectionForm: React.FC = () => {
       setPerson({ ...person, [e.currentTarget.name]: e.currentTarget.value });
 
       if (e.currentTarget.name === 'radioMoney') {
-        console.log(e.currentTarget.value);
         if (e.currentTarget.value === '10') {
           setRadioMoneyChecked({ radioOne: true, radioTwo: false, radioThree: false, radioFour: false });
-          setValueMoney(e.currentTarget.value);
+          setValueMoney(`${e.currentTarget.value},00`);
         }
         if (e.currentTarget.value === '25') {
           setRadioMoneyChecked({ radioOne: false, radioTwo: true, radioThree: false, radioFour: false });
-          setValueMoney(e.currentTarget.value);
+          setValueMoney(`${e.currentTarget.value},00`);
         }
         if (e.currentTarget.value === '50') {
           setRadioMoneyChecked({ radioOne: false, radioTwo: false, radioThree: true, radioFour: false });
-          setValueMoney(e.currentTarget.value);
+          setValueMoney(`${e.currentTarget.value},00`);
         }
         if (e.currentTarget.value === '100') {
           setRadioMoneyChecked({ radioOne: false, radioTwo: false, radioThree: false, radioFour: true });
-          setValueMoney(e.currentTarget.value);
+          setValueMoney(`${e.currentTarget.value},00`);
         }
       }
     },
@@ -66,34 +71,44 @@ const SectionForm: React.FC = () => {
 
   return (
     <Styled.Container>
-      <EmphasisText size="medium" fontSize="md" colorDark={true}>
-        Insira seus dados para fazer a doação para esta Instituição
-      </EmphasisText>
+      <Box mb="20px">
+        <EmphasisText size="medium" fontSize="md" colorDark={true}>
+          Insira seus dados para fazer a doação para esta Instituição
+        </EmphasisText>
+      </Box>
       <Styled.ContainerForm>
-        <RadioButton
-          name="personType"
-          label="Doar Como Pessoa Física"
-          value="fisicalPerson"
-          checked={typeChecked.radioOne}
-          onClick={handleChange}
-        ></RadioButton>
-        <RadioButton
-          name="personType"
-          label="Doar Como Pessoa Jurídica"
-          value="legalPerson"
-          checked={typeChecked.radioTwo}
-          onClick={handleChange}
-        ></RadioButton>
+        <Styled.ContainerRadioForm>
+          <RadioButton
+            name="personType"
+            label="Doar Como Pessoa Física"
+            value="fisicalPerson"
+            checked={typeChecked.radioOne}
+            onClick={handleChange}
+          ></RadioButton>
+          <RadioButton
+            name="personType"
+            label="Doar Como Pessoa Jurídica"
+            value="legalPerson"
+            checked={typeChecked.radioTwo}
+            onClick={handleChange}
+          ></RadioButton>
+        </Styled.ContainerRadioForm>
+
         <TextField name="nome" label="Nome" placeholder="Insira Seu Nome" onChange={handleChange} />
-        <TextFieldMasked name="cpf" label="CPF" placeholder="Insira Seu CPF" mask="cpf" onChange={handleChange} />
-        <TextFieldMasked name="cnpj" label="CNPJ" placeholder="Insira Seu CNPJ" mask="cnpj" onChange={handleChange} />
+        {typeChecked.radioOne ? (
+          <TextFieldMasked name="cpf" label="CPF" placeholder="Insira Seu CPF" mask="cpf" onChange={handleChange} />
+        ) : (
+          <TextFieldMasked name="cnpj" label="CNPJ" placeholder="Insira Seu CNPJ" mask="cnpj" onChange={handleChange} />
+        )}
+
         <TextFieldMasked
           name="phone"
-          label="Número"
+          label="Telefone"
           placeholder="Insira Seu Número"
           mask="phoneNumber"
           onChange={handleChange}
         />
+
         <Styled.RadioMoneySection>
           <Styled.RadioMoneyGroupLabel>Quantia:</Styled.RadioMoneyGroupLabel>
           <Styled.RadioMoneyGroup>
@@ -127,15 +142,21 @@ const SectionForm: React.FC = () => {
             />
           </Styled.RadioMoneyGroup>
         </Styled.RadioMoneySection>
-
-        <TextFieldMasked
-          name="currency"
-          placeholder="Insira o Valor que deseja Doar"
-          onChange={handleChange}
-          value={valueMoney ? valueMoney : ''}
-          mask="currency"
-          helperText="R$"
-        />
+        <Box py="10px">
+          <TextFieldMasked
+            name="currency"
+            placeholder="Insira o Valor que deseja Doar"
+            onChange={handleChange}
+            value={valueMoney ? valueMoney : ''}
+            mask="currency"
+            helperText="R$"
+          />
+        </Box>
+        <Box justifyContent="flex-end" mt="10px">
+          <Button size="medium" variant="primary">
+            Doar
+          </Button>
+        </Box>
       </Styled.ContainerForm>
     </Styled.Container>
   );
