@@ -12,11 +12,13 @@ const ButtonSize: any = {
     height: 30px; */
     padding: 6px;
     min-width: 60px;
+    max-width: 100px;
     font-size: ${theme.font.fontSizes.sm};
   `,
   medium: (theme: DefaultTheme) => css`
     padding: 9px;
     min-width: 100px;
+    max-width: 140px;
     font-size: ${theme.font.fontSizes.md};
   `,
   large: (theme: DefaultTheme) => css`
