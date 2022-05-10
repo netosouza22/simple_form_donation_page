@@ -20,7 +20,6 @@ export interface props {
 }
 
 const SectionInfo = ({ size, GridImageArray, footerInfo, backgroundImg }: props) => {
-  console.log(footerInfo);
   return (
     <Styled.Container backgroundImg={backgroundImg.srcImg}>
       <Styled.SectionInfoHead>
