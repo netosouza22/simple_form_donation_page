@@ -5,7 +5,7 @@ import { InputProps } from './TextFieldMasked/index';
 export const TextField = styled.input<InputProps>`
   z-index: 1;
   width: 100%;
-  height: 50px;
+  height: 45px;
 
   padding: 0px 10px;
   ${({ helperText }) =>
@@ -28,7 +28,7 @@ export const TextField = styled.input<InputProps>`
 export const TextFieldInput = styled.input`
   z-index: 1;
   width: 100%;
-  height: 50px;
+  height: 45px;
 
   padding: 0px 10px;
 
@@ -74,8 +74,7 @@ export const HelperTextField = styled.div<InputProps>`
   width: 100%;
   max-width: 50px;
   height: 100%;
-  min-height: 50px;
-  max-height: 50px;
+  height: 45px;
 
   border-radius: 5px 0px 0px 5px;
 
