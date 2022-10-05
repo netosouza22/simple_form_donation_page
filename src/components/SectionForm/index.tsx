@@ -66,8 +66,8 @@ const SectionForm: React.FC = () => {
     setMoneyValue(e.currentTarget.value);
   }, []);
 
-  const onSubmit = (e: any) => {
-    e.preventDefault();
+  const onSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
   };
 
   return (
@@ -167,7 +167,7 @@ const SectionForm: React.FC = () => {
           />
         </Box>
         <Box justifyContent="flex-end" mt="10px">
-          <Button type="submit" size="medium" variant="primary" onClick={onSubmit}>
+          <Button type="submit" size="medium" variant="primary">
             Doar
           </Button>
         </Box>
