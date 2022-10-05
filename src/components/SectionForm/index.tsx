@@ -12,11 +12,13 @@ import * as Styled from './styles';
 
 const SectionForm: React.FC = () => {
   const [person, setPerson] = React.useState<Person>({} as Person);
-  const [valueMoney, setValueMoney] = React.useState<string>('');
+  const [moneyValue, setMoneyValue] = React.useState<string>('00,00');
+
   const [typeChecked, setTypeChecked] = React.useState({
     radioOne: true,
     radioTwo: false,
   });
+
   const [radioMoneyChecked, setRadioMoneyChecked] = React.useState({
     radioOne: false,
     radioTwo: false,
@@ -26,11 +28,6 @@ const SectionForm: React.FC = () => {
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setPerson({ ...person, [e.currentTarget.name]: e.currentTarget.value });
-    console.log('here');
-    console.log('inside Form:', e.currentTarget.value);
-    if (e.currentTarget.name === 'currency') {
-      setValueMoney(e.currentTarget.value);
-    }
 
     if (e.currentTarget.name === 'personType') {
       if (e.currentTarget.value === 'fisicalPerson') {
@@ -42,35 +39,35 @@ const SectionForm: React.FC = () => {
     }
   };
 
-  const handleChangeMoney = React.useCallback(
-    (e: React.FormEvent<HTMLInputElement>) => {
-      setPerson({ ...person, [e.currentTarget.name]: e.currentTarget.value });
-
-      if (e.currentTarget.name === 'radioMoney') {
-        if (e.currentTarget.value === '10') {
-          setRadioMoneyChecked({ radioOne: true, radioTwo: false, radioThree: false, radioFour: false });
-          setValueMoney(`${e.currentTarget.value},00`);
-        }
-        if (e.currentTarget.value === '25') {
-          setRadioMoneyChecked({ radioOne: false, radioTwo: true, radioThree: false, radioFour: false });
-          setValueMoney(`${e.currentTarget.value},00`);
-        }
-        if (e.currentTarget.value === '50') {
-          setRadioMoneyChecked({ radioOne: false, radioTwo: false, radioThree: true, radioFour: false });
-          setValueMoney(`${e.currentTarget.value},00`);
-        }
-        if (e.currentTarget.value === '100') {
-          setRadioMoneyChecked({ radioOne: false, radioTwo: false, radioThree: false, radioFour: true });
-          setValueMoney(`${e.currentTarget.value},00`);
-        }
+  const handleChooseMoneyValue = React.useCallback((e: React.FormEvent<HTMLInputElement>) => {
+    if (e.currentTarget.name === 'radioMoney') {
+      if (e.currentTarget.value === '10') {
+        setRadioMoneyChecked({ radioOne: true, radioTwo: false, radioThree: false, radioFour: false });
+        setMoneyValue(`${e.currentTarget.value},00`);
       }
-    },
-    [person],
-  );
+      if (e.currentTarget.value === '25') {
+        setRadioMoneyChecked({ radioOne: false, radioTwo: true, radioThree: false, radioFour: false });
+        setMoneyValue(`${e.currentTarget.value},00`);
+      }
+      if (e.currentTarget.value === '50') {
+        setRadioMoneyChecked({ radioOne: false, radioTwo: false, radioThree: true, radioFour: false });
+        setMoneyValue(`${e.currentTarget.value},00`);
+      }
+      if (e.currentTarget.value === '100') {
+        setRadioMoneyChecked({ radioOne: false, radioTwo: false, radioThree: false, radioFour: true });
+        setMoneyValue(`${e.currentTarget.value},00`);
+      }
+    }
+  }, []);
+
+  const handleChangeMoney = React.useCallback((e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    setMoneyValue(e.currentTarget.value);
+  }, []);
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    console.log(person);
   };
 
   return (
@@ -133,28 +130,28 @@ const SectionForm: React.FC = () => {
                 value={10}
                 name="radioMoney"
                 checked={radioMoneyChecked.radioOne}
-                onClick={handleChangeMoney}
+                onClick={handleChooseMoneyValue}
               />
               <RadioButtonMoney
                 label="25"
                 value={25}
                 name="radioMoney"
                 checked={radioMoneyChecked.radioTwo}
-                onClick={handleChangeMoney}
+                onClick={handleChooseMoneyValue}
               />
               <RadioButtonMoney
                 label="50"
                 value={50}
                 name="radioMoney"
                 checked={radioMoneyChecked.radioThree}
-                onClick={handleChangeMoney}
+                onClick={handleChooseMoneyValue}
               />
               <RadioButtonMoney
                 label="100"
                 value={100}
                 name="radioMoney"
                 checked={radioMoneyChecked.radioFour}
-                onClick={handleChangeMoney}
+                onClick={handleChooseMoneyValue}
               />
             </Styled.RadioMoneyGroup>
           </Styled.RadioMoneySection>
@@ -163,9 +160,9 @@ const SectionForm: React.FC = () => {
           <TextFieldMasked
             name="currency"
             placeholder="Insira o Valor que deseja Doar"
-            onKeyUp={handleChange}
-            value={valueMoney ? valueMoney : ''}
+            onKeyUp={handleChangeMoney}
             mask="currency"
+            value={moneyValue}
             helperText="R$"
           />
         </Box>
