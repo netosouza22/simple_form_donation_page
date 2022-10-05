@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import * as React from 'react';
 import styled, { css, DefaultTheme } from 'styled-components';
 
-export interface IButton {
+export interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: string;
   variant?: 'primary' | 'secondary';
   size: 'small' | 'medium' | 'large';
+  // onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const ButtonSize: any = {
@@ -49,6 +51,5 @@ const ContainerButton = styled.button<IButton>`
 `;
 
 export const Button = ({ children, ...props }: IButton) => {
-  // eslint-disable-next-line prettier/prettier
-  return (<ContainerButton {...props}>{children}</ContainerButton>);
+  return <ContainerButton {...props}>{children}</ContainerButton>;
 };
