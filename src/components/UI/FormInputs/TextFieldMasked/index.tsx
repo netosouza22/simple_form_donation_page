@@ -9,6 +9,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   backgroundColor?: string;
   darkColor?: boolean;
+  theValue?: string;
 }
 
 export const TextFieldMasked: React.FC<InputProps> = ({
@@ -17,8 +18,17 @@ export const TextFieldMasked: React.FC<InputProps> = ({
   helperText,
   backgroundColor,
   darkColor,
+  value,
   ...rest
 }) => {
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (inputRef.current !== null && typeof value === 'string') {
+      inputRef.current.value = value;
+    }
+  }, [value]);
+
   const handleChangeText = React.useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       let value = '';
@@ -63,7 +73,7 @@ export const TextFieldMasked: React.FC<InputProps> = ({
           {helperTextFormated()}
         </HelperTextField>
       )}
-      <TextField helperText={helperText} {...rest} onKeyUp={handleChangeText} />;
+      <TextField helperText={helperText} {...rest} ref={inputRef} onChange={handleChangeText} />;
     </TextFieldContainer>
   );
 };

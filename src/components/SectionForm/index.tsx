@@ -24,25 +24,24 @@ const SectionForm: React.FC = () => {
     radioFour: false,
   });
 
-  const handleChange = React.useCallback(
-    (e: React.FormEvent<HTMLInputElement>) => {
-      setPerson({ ...person, [e.currentTarget.name]: e.currentTarget.value });
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setPerson({ ...person, [e.currentTarget.name]: e.currentTarget.value });
+    console.log('here');
+    console.log('inside Form:', e.currentTarget.value);
+    if (e.currentTarget.name === 'currency') {
+      setValueMoney(e.currentTarget.value);
+    }
 
-      if (e.currentTarget.name === 'currency') {
-        setValueMoney(e.currentTarget.value);
+    if (e.currentTarget.name === 'personType') {
+      if (e.currentTarget.value === 'fisicalPerson') {
+        setTypeChecked({ radioOne: true, radioTwo: false });
       }
+      if (e.currentTarget.value === 'legalPerson') {
+        setTypeChecked({ radioOne: false, radioTwo: true });
+      }
+    }
+  };
 
-      if (e.currentTarget.name === 'personType') {
-        if (e.currentTarget.value === 'fisicalPerson') {
-          setTypeChecked({ radioOne: true, radioTwo: false });
-        }
-        if (e.currentTarget.value === 'legalPerson') {
-          setTypeChecked({ radioOne: false, radioTwo: true });
-        }
-      }
-    },
-    [person],
-  );
   const handleChangeMoney = React.useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       setPerson({ ...person, [e.currentTarget.name]: e.currentTarget.value });
@@ -69,6 +68,11 @@ const SectionForm: React.FC = () => {
     [person],
   );
 
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    console.log(person);
+  };
+
   return (
     <Styled.Container>
       <Box mb="20px">
@@ -76,84 +80,97 @@ const SectionForm: React.FC = () => {
           Insira seus dados para fazer a doação para esta Instituição
         </EmphasisText>
       </Box>
-      <Styled.ContainerForm>
-        <Styled.ContainerRadioForm>
-          <RadioButton
-            name="personType"
-            label="Doar Como Pessoa Física"
-            value="fisicalPerson"
-            checked={typeChecked.radioOne}
-            onClick={handleChange}
-          ></RadioButton>
-          <RadioButton
-            name="personType"
-            label="Doar Como Pessoa Jurídica"
-            value="legalPerson"
-            checked={typeChecked.radioTwo}
-            onClick={handleChange}
-          ></RadioButton>
-        </Styled.ContainerRadioForm>
-
-        <TextField name="nome" label="Nome" placeholder="Insira Seu Nome" onChange={handleChange} />
-        {typeChecked.radioOne ? (
-          <TextFieldMasked name="cpf" label="CPF" placeholder="Insira Seu CPF" mask="cpf" onChange={handleChange} />
-        ) : (
-          <TextFieldMasked name="cnpj" label="CNPJ" placeholder="Insira Seu CNPJ" mask="cnpj" onChange={handleChange} />
-        )}
-
-        <TextFieldMasked
-          name="phone"
-          label="Telefone"
-          placeholder="Insira Seu Número"
-          mask="phoneNumber"
-          onChange={handleChange}
-        />
-
-        <Styled.RadioMoneySection>
-          <Styled.RadioMoneyGroupLabel>Quantia:</Styled.RadioMoneyGroupLabel>
-          <Styled.RadioMoneyGroup>
-            <RadioButtonMoney
-              label="10"
-              value={10}
-              name="radioMoney"
-              checked={radioMoneyChecked.radioOne}
-              onClick={handleChangeMoney}
+      <Styled.ContainerForm onSubmit={onSubmit}>
+        <Box>
+          <Styled.ContainerRadioForm>
+            <RadioButton
+              name="personType"
+              label="Doar Como Pessoa Física"
+              value="fisicalPerson"
+              checked={typeChecked.radioOne}
+              onClick={handleChange}
+            ></RadioButton>
+            <RadioButton
+              name="personType"
+              label="Doar Como Pessoa Jurídica"
+              value="legalPerson"
+              checked={typeChecked.radioTwo}
+              onClick={handleChange}
+            ></RadioButton>
+          </Styled.ContainerRadioForm>
+        </Box>
+        <Box>
+          <TextField name="nome" label="Nome" placeholder="Insira Seu Nome" onChange={handleChange} />
+        </Box>
+        <Box>
+          {typeChecked.radioOne ? (
+            <TextFieldMasked name="cpf" label="CPF" placeholder="Insira Seu CPF" mask="cpf" onKeyUp={handleChange} />
+          ) : (
+            <TextFieldMasked
+              name="cnpj"
+              label="CNPJ"
+              placeholder="Insira Seu CNPJ"
+              mask="cnpj"
+              onKeyUp={handleChange}
             />
-            <RadioButtonMoney
-              label="25"
-              value={25}
-              name="radioMoney"
-              checked={radioMoneyChecked.radioTwo}
-              onClick={handleChangeMoney}
-            />
-            <RadioButtonMoney
-              label="50"
-              value={50}
-              name="radioMoney"
-              checked={radioMoneyChecked.radioThree}
-              onClick={handleChangeMoney}
-            />
-            <RadioButtonMoney
-              label="100"
-              value={100}
-              name="radioMoney"
-              checked={radioMoneyChecked.radioFour}
-              onClick={handleChangeMoney}
-            />
-          </Styled.RadioMoneyGroup>
-        </Styled.RadioMoneySection>
+          )}
+        </Box>
+        <Box>
+          <TextFieldMasked
+            name="phone"
+            label="Telefone"
+            placeholder="Insira Seu Número"
+            mask="phoneNumber"
+            onKeyUp={handleChange}
+          />
+        </Box>
+        <Box>
+          <Styled.RadioMoneySection>
+            <Styled.RadioMoneyGroupLabel>Quantia:</Styled.RadioMoneyGroupLabel>
+            <Styled.RadioMoneyGroup>
+              <RadioButtonMoney
+                label="10"
+                value={10}
+                name="radioMoney"
+                checked={radioMoneyChecked.radioOne}
+                onClick={handleChangeMoney}
+              />
+              <RadioButtonMoney
+                label="25"
+                value={25}
+                name="radioMoney"
+                checked={radioMoneyChecked.radioTwo}
+                onClick={handleChangeMoney}
+              />
+              <RadioButtonMoney
+                label="50"
+                value={50}
+                name="radioMoney"
+                checked={radioMoneyChecked.radioThree}
+                onClick={handleChangeMoney}
+              />
+              <RadioButtonMoney
+                label="100"
+                value={100}
+                name="radioMoney"
+                checked={radioMoneyChecked.radioFour}
+                onClick={handleChangeMoney}
+              />
+            </Styled.RadioMoneyGroup>
+          </Styled.RadioMoneySection>
+        </Box>
         <Box py="10px">
           <TextFieldMasked
             name="currency"
             placeholder="Insira o Valor que deseja Doar"
-            onChange={handleChange}
+            onKeyUp={handleChange}
             value={valueMoney ? valueMoney : ''}
             mask="currency"
             helperText="R$"
           />
         </Box>
         <Box justifyContent="flex-end" mt="10px">
-          <Button size="medium" variant="primary">
+          <Button type="submit" size="medium" variant="primary" onClick={onSubmit}>
             Doar
           </Button>
         </Box>
